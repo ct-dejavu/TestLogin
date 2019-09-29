@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "224933d5-b3f1-46ec-a312-64c388c8d289",
+		"name": "TestLogin0929",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST请求——登录成功",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6bfa1aec-3d24-438c-9d0c-1de68f9cf4e4",
+						"exec": [
+							"// 判断响应状态码",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// 判断success",
+							"pm.test(\"success\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.success).to.eql(true);",
+							"});",
+							"",
+							"// 判断code",
+							"pm.test(\"code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(10000);",
+							"});",
+							"",
+							"// 判断message",
+							"pm.test(\"message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"操作成功\");",
+							"});",
+							"",
+							"// 判断header",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\":\"13800000002\", \r\n\"password\":\"123456\"}"
+				},
+				"url": {
+					"raw": "{{url}}/api/sys/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
